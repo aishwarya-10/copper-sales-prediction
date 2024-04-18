@@ -1,5 +1,5 @@
-# Copper Sales Prediction :A Machine Learning Approach to Status and Price
-This project develops machine learning models that can predict selling price and classify status of sale.
+# Copper Sales Prediction:A Machine Learning Approach to Status and Price
+This project develops machine learning models that can predict selling prices and classify the status of sales.
 
 <br>
 
@@ -69,11 +69,35 @@ warnings.filterwarnings('ignore')
 <br>
 
 ## Data Preparation
-- EDA analysis shows the data requires scaling, filling missing values, outliers removal, delivery date correctness, data type conversion.
-- The columns (object datatype) which cannot be filled and has more than 50% missing value is dropped.
+- EDA analysis shows the data requires scaling, filling missing values, outliers removal, delivery date correctness, and data type conversion.
+- The columns (object datatype) that cannot be filled and have more than 50% missing value are dropped.
 - The datatypes of certain columns (objects) are converted to numeric and datetime format.
-- The missing values of categorical features are filled using `mode` and continuous features are filled using median.
+- The missing values of categorical features are filled using `mode` and continuous features are filled using the median.
 - The categorical variables are converted to numerical format using `ordinal encoding`.
-- The skewed data [quantity, thickness, selling price] are visualized
+- The skewed data [quantity, thickness, selling price] are visualized and transformed to a normal distribution using the `log transform` method.
+- The outliers in the data are removed by the Interquartile Range (IQR) method.
+- The correlation analysis shows the data has less correlation and hence no column is dropped.
+- The wrong delivery date in the dataset is handled by the regression method.
+- Finally, the processed data is saved for further analysis.
 
+<br>
 
+## Predict Status
+- 'status' is categorical data and hence classification technique is used for predicting "won" or "lost".
+- The data was imbalanced and used `oversampling` method to balance the data.
+- The best classification model is evaluated using ROCAUC score, accuracy, and F1 score.
+- `ExtraTreesClassifier` has produced high accuracy than all other tree regression models with 
+20% test size.
+- The model is saved using `pickle` library.
+
+<br>
+
+## Predict Selling Price
+- 'selling_price' is a continuous data and hence regression technique is used.
+- ExtraTreesRegressor` performed well with 0.95 R^2 value and low error.
+- The trained model is saved using pickle for further predictions.
+
+<br>
+
+## Dashboard
+Streamlit dashboard which inputs all the features required for the model to predict is made for status and selling price prediction.
