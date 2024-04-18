@@ -19,7 +19,7 @@ The model relies on historical transaction data for copper sales. The data inclu
 <br>
 
 # Approach
-## Import Necessary Libraries
+## Step 1: Import Necessary Libraries
 The libraries needed for copper modeling are entered below.
 ``` python
 #[Data Transformation]
@@ -68,36 +68,55 @@ warnings.filterwarnings('ignore')
 ```
 <br>
 
-## Data Preparation
-- EDA analysis shows the data requires scaling, filling missing values, outliers removal, delivery date correctness, and data type conversion.
-- The columns (object datatype) that cannot be filled and have more than 50% missing value are dropped.
-- The datatypes of certain columns (objects) are converted to numeric and datetime format.
-- The missing values of categorical features are filled using `mode` and continuous features are filled using the median.
-- The categorical variables are converted to numerical format using `ordinal encoding`.
-- The skewed data [quantity, thickness, selling price] are visualized and transformed to a normal distribution using the `log transform` method.
-- The outliers in the data are removed by the Interquartile Range (IQR) method.
-- The correlation analysis shows the data has less correlation and hence no column is dropped.
-- The wrong delivery date in the dataset is handled by the regression method.
-- Finally, the processed data is saved for further analysis.
+## Step 2: Data Preparation
+Exploratory Data Analysis (EDA) revealed the data required several cleaning steps before further analysis. These steps included:
+**1. Missing Value Handling:**
+Columns with an object data type and more than 50% missing values that couldn't be effectively filled were dropped.
+Missing values in categorical features were imputed using the most frequent value (`mode`).
+Missing values in continuous features were filled using the `median` value.
+
+**2. Data Type Conversion:**
+Data types of specific object columns were converted to numeric formats or datetime formats for better analysis.
+
+**3. Feature Engineering:**
+Categorical variables were transformed into numerical representations using `ordinal encoding`. This allows for calculations and modeling techniques that work with numerical data.
+
+**4. Normalization:**
+Skewed data in features like quantity, thickness, and selling price were identified through visualization.
+A `log transformation` was applied to these features to achieve a more normal distribution, which is often preferred for statistical modeling.
+
+**5. Outlier Treatment:**
+Outliers were identified and removed using the `Interquartile Range` (IQR) method. This helps maintain data integrity and prevents outliers from unduly influencing model results.
+
+**6. Correlation Analysis:**
+Correlation analysis revealed a low level of correlation between features, indicating no significant redundancy. Therefore, no feature removal was necessary at this stage.
+
+**7. Delivery Date Correction:**
+Inaccurate delivery dates within the dataset were addressed using a regression method. This method can help predict and correct the most likely values for these discrepancies.
+
+**8. Data Persistence:**
+Finally, the cleaned and processed data was saved for further analysis and model training.
 
 <br>
 
-## Predict Status
-- 'status' is categorical data and hence classification technique is used for predicting "won" or "lost".
-- The data was imbalanced and used `oversampling` method to balance the data.
-- The best classification model is evaluated using ROCAUC score, accuracy, and F1 score.
-- `ExtraTreesClassifier` has produced high accuracy than all other tree regression models with 
-20% test size.
-- The model is saved using `pickle` library.
+## Step 3: Predict Status
+- The "status" variable is categorical, indicating a win or loss, a classification technique was chosen for prediction.
+- The data exhibited an imbalance between the number of "won" and "lost" cases. To address this, the `oversampling` method was employed to create a more balanced dataset. This ensures the model doesn't get biased towards the more frequent class.
+- To identify the best-performing classification model, we evaluated them using a combination of metrics:
+  - **ROCAUC score:** Measures the model's ability to distinguish between "won" and "lost" cases.
+  - **Accuracy:** The overall percentage of correct predictions.
+  - **F1 score:** A balanced metric considering both precision and recall, especially important for imbalanced datasets.
+- Among the tree-based regression models tested with a 20% test set size, the `ExtraTreesClassifier` achieved the highest accuracy. This suggests it generalizes well to unseen data and avoids overfitting.
+- The final chosen model was saved using the `pickle` library for future use and potential deployment.
 
 <br>
 
-## Predict Selling Price
-- 'selling_price' is a continuous data and hence regression technique is used.
-- ExtraTreesRegressor` performed well with 0.95 R^2 value and low error.
+## Step 4: Predict Selling Price
+- The 'selling_price' variable is continuous data and hence regression technique was chosen for prediction.
+- `ExtraTreesRegressor` performed well with 0.95 R^2 value and low error.
 - The trained model is saved using pickle for further predictions.
 
 <br>
 
-## Dashboard
+## Step 5: Dashboard
 Streamlit dashboard which inputs all the features required for the model to predict is made for status and selling price prediction.
