@@ -70,7 +70,6 @@ warnings.filterwarnings('ignore')
 
 ## Step 2: Data Preparation
 Exploratory Data Analysis (EDA) revealed the data required several cleaning steps before further analysis. These steps included:
-
 **1. Missing Value Handling:**
 Columns with an object data type and more than 50% missing values that couldn't be effectively filled were dropped.
 Missing values in categorical features were imputed using the most frequent value (`mode`).
