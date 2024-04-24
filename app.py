@@ -1,6 +1,7 @@
 # ==================================================       /     IMPORT LIBRARY    /      =================================================== #
 #[model]
 import pickle
+import base64
 
 #[Data Transformation]
 from datetime import datetime
@@ -18,6 +19,29 @@ st.set_page_config(
     layout = "wide",
     initial_sidebar_state= "expanded"
     )
+
+@st.cache_data
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+bg_img = get_img_as_base64("Image/gradient2.jpg")
+
+page_bg_img = f"""
+<style>
+# [data-testid="stAppViewContainer"] {{
+# background-image: url("data:image/png;base64,{bg_img}");
+# background-size: cover;
+# }}
+
+[data-testid="stHeader"] {{
+background: rgba(0,0,0,0);
+}}
+
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Title
 st.title(":red[Copper Sales Prediction:] :orange[A Machine Learning Approach to Status and Price]")
@@ -51,7 +75,7 @@ tabs = st.tabs(["Predict Sale Status", "Estimate Selling Price"])
 
 with tabs[0]:
     st.write("")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3, gap="medium") 
     with col1:
         C_country = st.selectbox(label= "Country", options= country, index= 10, key= "country")
         C_itemType = st.selectbox(label= "Item Type", options= item_type, index= 0, key= "item_T")
@@ -82,9 +106,10 @@ with tabs[0]:
 
 with tabs[1]:
     st.write("")
-    col1, col2  = st.columns(2)
+    col1, col2  = st.columns(2, gap="medium")
     with col1: 
-        R_country = st.selectbox(label= "Country", options= country, index= 10, key= "country1")
+        label1 = "Country"
+        R_country = st.selectbox(f"# {label1}", options= country, index= 10, key= "country1")
         R_status = st.selectbox(label= "Status", options= status, index= 0, key= "status1")
         R_itemType = st.selectbox(label= "Item Type", options= item_type, index= 0, key= "item_T1")
         R_application = st.selectbox(label= "Application", options= application, index= 4, key= "appl1")
@@ -113,7 +138,7 @@ with tabs[1]:
 css = '''
 <style>
     .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-    font-size:1rem;
+    font-size:1.5rem;
     }
 </style>
 '''
