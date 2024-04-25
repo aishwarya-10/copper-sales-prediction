@@ -45,7 +45,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Title
 st.title(":red[Copper Sales Prediction:] :orange[A Machine Learning Approach to Status and Price]")
-
+# st.markdown("<h1 style='text-align: center; color: red;'>Industrial Copper Modelling</h1>", unsafe_allow_html=True)
 
 # Options
 country = [25.0, 26.0, 27.0, 28.0, 30.0, 32.0, 38.0, 39.0, 40.0, 77.0, 78.0, 79.0, 80.0, 84.0, 89.0, 107.0, 113.0]
@@ -60,7 +60,7 @@ item_type = ['W', 'WI', 'S', 'Others', 'PL', 'IPL', 'SLAWR']
 
 item_type_dict = {'W':5, 'WI':6, 'S':3, 'Others':1, 'PL':2, 'IPL':0, 'SLAWR':4}
 
-application = [2.0, 3.0, 4.0, 5.0, 10.0, 15.0, 19.0, 20.0, 22.0, 25.0, 26.0, 27.0, 
+application = [2.0, 3.0, 4.0, 5.0, 10.0, 15.0, 19.0, 20.0, 22.0, 25.0, 26.0, 27.0, #12
                 28.0, 29.0, 38.0, 39.0, 40.0, 41.0, 42.0, 56.0, 58.0, 59.0, 65.0, 66.0, 
                 67.0, 68.0, 69.0, 70.0, 79.0, 99.0]
 
@@ -74,66 +74,73 @@ product_ref = [611728, 611733, 611993, 628112, 628117, 628377, 640400, 640405, 6
 tabs = st.tabs(["Predict Sale Status", "Estimate Selling Price"])
 
 with tabs[0]:
-    st.write("")
     col1, col2, col3 = st.columns(3, gap="medium") 
     with col1:
-        C_country = st.selectbox(label= "Country", options= country, index= 10, key= "country")
-        C_itemType = st.selectbox(label= "Item Type", options= item_type, index= 0, key= "item_T")
-        C_application = st.selectbox(label= "Application", options= application, index= 4, key= "appl")
-        C_prodRef = st.selectbox(label= "Product Reference", options= product_ref, index= 9, key= "prod")
+        C_country = st.selectbox(label= "Country", options= country, index= 3, key= "country")
+        C_itemType = st.selectbox(label= "Item Type", options= item_type, index= 5, key= "item_T")
+        C_application = st.selectbox(label= "Application", options= application, index= 17, key= "appl")
+        C_prodRef = st.selectbox(label= "Product Reference", options= product_ref, index= 2, key= "prod")
     with col2:
-        C_width = st.slider(label= "Width", value= 1500.0, min_value= 700.0, max_value= 1980.0, key= "width")
-        C_thick = st.slider(label= "Thickness", min_value= 0.1, max_value= 2500.0, value= 3.64, key= "thick")
-        C_itemDate = st.date_input(label= "Item Date", value= datetime(2021, 4, 1), min_value= datetime(2020, 1, 1), max_value= datetime(2022, 1, 1), key= "itemD")
+        C_width = st.slider(label= "Width", value= 1085.0, min_value= 700.0, max_value= 1980.0, key= "width")
+        C_thick = st.slider(label= "Thickness", min_value= 0.1, max_value= 2500.0, value= 0.42, key= "thick")
+        C_itemDate = st.date_input(label= "Item Date", value= datetime(2021, 3, 31), min_value= datetime(2020, 1, 1), max_value= datetime(2022, 1, 1), key= "itemD")
         C_deliveryDate = st.date_input(label= "Delivery Date", value= datetime(2021, 7, 1), min_value= datetime(2020, 1, 2), max_value= datetime(2022, 1, 2), key= "delivery")
     with col3:
-        C_customer = st.number_input(label= "Customer-ID", min_value= 12458, max_value= 2147483647, value= 30223403, key= "customer")
-        C_quantity = st.number_input(label= "Quantity (ton)", min_value= 0.1, max_value= 1000000000.0, value= 8.71, key= "quantity")
-        C_price = st.number_input(label= "Selling Price", min_value= 0.1, max_value= 100001015.0, value= 1253.0, key= "price")
+        C_customer = st.number_input(label= "Customer-ID", min_value= 12458, max_value= 2147483647, value= 30283915, key= "customer")
+        C_quantity = st.number_input(label= "Quantity (ton)", min_value= 0.1, max_value= 1000000000.0, value= 49.01, key= "quantity")
+        C_price = st.number_input(label= "Selling Price", min_value= 0.1, max_value= 100001015.0, value= 1267.0, key= "price")
     
-    with stylable_container(
-        key="red_button",
-        css_styles="""
-            button {
-                background-color: green;
-                color: white;
-                border-radius: 20px;
-                background-image: linear-gradient(90deg, #ff00cc 0%, #333399 100%);
-            }
-            """,
-    ):  
-        pred_status_button = st.button("Predict Status")
+    st.write(" ")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col3:
+        with stylable_container(
+            key="red_button",
+            css_styles="""
+                button {
+                    background-color: green;
+                    color: black;
+                    border-radius: 20px;
+                    background-image: linear-gradient(90deg, #fc4a1a 0%, #f7b733 100%)
+                }
+                """,
+        ):  
+            pred_status_button = st.button("Predict Status")
 
 with tabs[1]:
-    st.write("")
-    col1, col2  = st.columns(2, gap="medium")
+    col1, col2, col3  = st.columns(3, gap="medium")
     with col1: 
-        label1 = "Country"
-        R_country = st.selectbox(f"# {label1}", options= country, index= 10, key= "country1")
+        R_country = st.selectbox("Country", options= country, index= 10, key= "country1")
         R_status = st.selectbox(label= "Status", options= status, index= 0, key= "status1")
         R_itemType = st.selectbox(label= "Item Type", options= item_type, index= 0, key= "item_T1")
         R_application = st.selectbox(label= "Application", options= application, index= 4, key= "appl1")
-        R_prodRef = st.selectbox(label= "Product Reference", options= product_ref, index= 9, key= "prod1")
+
     with col2:
+        R_prodRef = st.selectbox(label= "Product Reference", options= product_ref, index= 9, key= "prod1")
         R_width = st.slider(label= "Width", value= 1045.0, min_value= 700.0, max_value= 1980.0, key= "width1")
         R_thick = st.slider(label= "Thickness", min_value= 0.1, max_value= 2500.0, value= 3.64, key= "thick1")
+
+    with col3:
         R_customer = st.number_input(label= "Customer-ID", min_value= 12458, max_value= 2147483647, value= 30223403, key= "customer1")
         R_quantity = st.number_input(label= "Quantity (ton)", min_value= 0.1, max_value= 1000000000.0, value= 8.71, key= "quantity1")
         R_itemDate = st.date_input(label= "Item Date", value= datetime(2021, 4, 1), min_value= datetime(2020, 1, 1), max_value= datetime(2022, 1, 1), key= "itemD1")
         R_deliveryDate = st.date_input(label= "Delivery Date", value= datetime(2021, 7, 1), min_value= datetime(2020, 1, 2), max_value= datetime(2022, 1, 2), key= "delivery1")
     
-    with stylable_container(
-        key="green_button",
-        css_styles="""
-            button {
-                background-color: green;
-                color: black;
-                border-radius: 20px;
-                background-image: linear-gradient(90deg, #89f7fe 0%, #66a6ff 100%);
-            }
-            """,
-    ):
-        pred_price_button = st.button("Predict Selling Price")
+    st.write(" ")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col3:
+        with stylable_container(
+            key="green_button",
+            css_styles="""
+                button {
+                    text-align: centered;
+                    background-color: green;
+                    color: white;
+                    border-radius: 20px;
+                    background-image: linear-gradient(90deg, #333333 0%, #dd1818 100%)
+                }
+                """,
+        ):
+            pred_price_button = st.button("Predict Selling Price", use_container_width=False)
 
 css = '''
 <style>
@@ -168,28 +175,28 @@ def format_currency(number):
         thousand = reversed_num[:3]
         bal = reversed_num[3:]
         if len(bal) == 0:
-            formatted_num = f"₹{thousand[::-1]}.{decimal[:2]}"
+            formatted_num = f"{thousand[::-1]}.{decimal[:2]}"
         elif len(bal) < 3:
             formatted_int = thousand + "," + bal
-            formatted_num = f"₹{formatted_int[::-1]}.{decimal[:2]}"
+            formatted_num = f"{formatted_int[::-1]}.{decimal[:2]}"
         else:
             hundreds = sep.join(bal[i:i+2] for i in range(0, len(bal), 2))
             formatted_int = thousand + "," + hundreds
-            formatted_num = f"₹{formatted_int[::-1]}.{decimal[:2]}"
+            formatted_num = f"{formatted_int[::-1]}.{decimal[:2]}"
     else:
         integer = number_str
         reversed_num = integer[::-1]
         thousand = reversed_num[:3]
         bal = reversed_num[3:]
         if len(bal) == 0:
-            formatted_num = f"₹{thousand[::-1]}"
+            formatted_num = f"{thousand[::-1]}"
         elif len(bal) < 3:
             formatted_int = thousand + "," + bal
-            formatted_num = f"₹{formatted_int[::-1]}"
+            formatted_num = f"{formatted_int[::-1]}"
         else:
             hundreds = sep.join(bal[i:i+2] for i in range(0, len(bal), 2))
             formatted_int = thousand + "," + hundreds
-            formatted_num = f"₹{formatted_int[::-1]}"
+            formatted_num = f"{formatted_int[::-1]}"
     return formatted_num
 
 # Model
@@ -201,7 +208,7 @@ if pred_status_button:
     # Transform Day, Month, Year
     C_item_year, C_item_month, C_item_day = str(C_itemDate).split("-")
     C_delivery_year, C_delivery_month, C_delivery_day = str(C_deliveryDate).split("-")
-
+ 
     # Combine User Inputs to an array
     user_status_data = np.array([[int(C_customer), 
                                 int(C_country),
@@ -221,11 +228,21 @@ if pred_status_button:
   
     pred_status = status_model.predict(user_status_data)
 
-    # Result
-    if pred_status[0] == 1:
-        st.success('This sales lead would be successful')
+    # Check for correct dates
+    itemD_str= str(C_itemDate)
+    deliD_str= str(C_deliveryDate)
+    itemD = datetime.strptime(itemD_str, "%Y-%m-%d")
+    deliD = datetime.strptime(deliD_str, "%Y-%m-%d")
+    is_less_than = itemD < deliD
+    if is_less_than:
+        # Results
+        if pred_status[0] == 1:
+            st.success(':green[This sales lead would be successful]')
+        else:
+            st.warning(":red[The lead has been identified as less promising based on the status prediction]")
     else:
-        st.warning("The lead has been identified as less promising based on the status prediction")
+        st.warning("The delivery date can't be before the item date. Please choose a later date.")
+
 
 elif pred_price_button:
     # Load pickle model to predict the status.
@@ -256,9 +273,17 @@ elif pred_price_button:
     pred_price = price_model.predict(user_status_data)
     final_price = format_currency(round(np.exp(pred_price[0]), 2))
 
-    # Result
-    st.info(f"The Estimated Selling Price of the Copper Transaction is {final_price}")
-
+    # Check for correct dates
+    itemD_str= str(R_itemDate)
+    deliD_str= str(R_deliveryDate)
+    itemD = datetime.strptime(itemD_str, "%Y-%m-%d")
+    deliD = datetime.strptime(deliD_str, "%Y-%m-%d")
+    is_less_than = itemD < deliD
+    if is_less_than:
+        # Results
+        st.info(f"The Estimated Selling Price of the Copper Transaction is :blue[{final_price}]")
+    else:
+        st.warning("The delivery date can't be before the item date. Please choose a later date.")
 
 
 # cd Projects\Project_5\git_project_5\copper-sales-prediction
