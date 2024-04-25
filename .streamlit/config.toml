@@ -3,4 +3,4 @@ base="light"
 font="serif"
 
 [server]
-maxUploadSize=2097152000
+maxUploadSize=209715200000000000
