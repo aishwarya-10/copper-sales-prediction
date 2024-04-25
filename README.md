@@ -1,5 +1,7 @@
-# Copper Sales Prediction:A Machine Learning Approach to Status and Price
+# Copper Sales Prediction: A Machine Learning Approach to Status and Price
 This project develops machine learning models that can predict selling prices and classify the status of sales.
+
+[Demo](https://www.linkedin.com/posts/aishwarya-velmurugan_greetings-excited-to-share-my-fifth-data-activity-7189249363615932416-0IBZ?utm_source=share&utm_medium=member_desktop)
 
 <br>
 
