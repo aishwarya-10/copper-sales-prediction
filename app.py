@@ -201,17 +201,24 @@ def format_currency(number):
             formatted_num = f"{formatted_int[::-1]}"
     return formatted_num
 
+# Download model
+url_class = "https://drive.google.com/uc?id=1W2gncHwwF8m72QfXEPdZDf6fO5HQ3NLa"
+output_class = "classification_model.pkl"
+gdown.download(url_class, output_class)
+with open(output_class, 'rb') as f:
+    status_model = pickle.load(f)
+
+url_reg = "https://drive.google.com/uc?id=1bICZN8X9jZqImDNekjmWGM9L-9Qv7j-7"
+output_reg = "regression_model.pkl"
+gdown.download(url_reg, output_reg)
+with open(output_reg, 'rb') as f:
+    price_model = pickle.load(f)
+
 # Model
 if pred_status_button:
     # Load pickle model to predict the status.
     # with open('Model/classification_model.pkl', 'rb') as f:
     #     status_model = pickle.load(f)
-
-    url_class = "https://drive.google.com/uc?id=1W2gncHwwF8m72QfXEPdZDf6fO5HQ3NLa"
-    output_class = "classification_model.pkl"
-    gdown.download(url_class, output_class)
-    with open(output_class, 'rb') as f:
-        status_model = pickle.load(f)
 
     # Transform Day, Month, Year
     C_item_year, C_item_month, C_item_day = str(C_itemDate).split("-")
@@ -256,12 +263,6 @@ elif pred_price_button:
     # Load pickle model to predict the status.
     # with open('Model/regression_model.pkl', 'rb') as f:
     #     price_model = pickle.load(f)
-
-    url_reg = "https://drive.google.com/uc?id=1bICZN8X9jZqImDNekjmWGM9L-9Qv7j-7"
-    output_reg = "regression_model.pkl"
-    gdown.download(url_reg, output_reg)
-    with open(output_reg, 'rb') as f:
-        price_model = pickle.load(f)
 
     # Transform Day, Month, Year
     R_item_year, R_item_month, R_item_day = str(R_itemDate).split("-")
