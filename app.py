@@ -2,6 +2,7 @@
 #[model]
 import pickle
 import base64
+import gdown
 
 #[Data Transformation]
 from datetime import datetime
@@ -82,7 +83,7 @@ with tabs[0]:
         C_prodRef = st.selectbox(label= "Product Reference", options= product_ref, index= 2, key= "prod")
     with col2:
         C_width = st.slider(label= "Width", value= 1085.0, min_value= 700.0, max_value= 1980.0, key= "width")
-        C_thick = st.slider(label= "Thickness", min_value= 0.1, max_value= 2500.0, value= 0.42, key= "thick")
+        C_thick = st.slider(label= "Thickness", min_value= 0.1, max_value= 50.0, value= 0.42, key= "thick")
         C_itemDate = st.date_input(label= "Item Date", value= datetime(2021, 3, 31), min_value= datetime(2020, 1, 1), max_value= datetime(2022, 1, 1), key= "itemD")
         C_deliveryDate = st.date_input(label= "Delivery Date", value= datetime(2021, 7, 1), min_value= datetime(2020, 1, 2), max_value= datetime(2022, 1, 2), key= "delivery")
     with col3:
@@ -202,7 +203,13 @@ def format_currency(number):
 # Model
 if pred_status_button:
     # Load pickle model to predict the status.
-    with open('Model/classification_model.pkl', 'rb') as f:
+    # with open('Model/classification_model.pkl', 'rb') as f:
+    #     status_model = pickle.load(f)
+
+    url_class = "https://drive.google.com/uc?id=1W2gncHwwF8m72QfXEPdZDf6fO5HQ3NLa"
+    output_class = "classification_model.pkl"
+    gdown.download(url_class, output_class)
+    with open(output_class, 'rb') as f:
         status_model = pickle.load(f)
 
     # Transform Day, Month, Year
@@ -246,7 +253,13 @@ if pred_status_button:
 
 elif pred_price_button:
     # Load pickle model to predict the status.
-    with open('Model/regression_model.pkl', 'rb') as f:
+    # with open('Model/regression_model.pkl', 'rb') as f:
+    #     price_model = pickle.load(f)
+
+    url_reg = "https://drive.google.com/uc?id=1bICZN8X9jZqImDNekjmWGM9L-9Qv7j-7"
+    output_reg = "regression_model.pkl"
+    gdown.download(url_reg, output_reg)
+    with open(output_reg, 'rb') as f:
         price_model = pickle.load(f)
 
     # Transform Day, Month, Year
