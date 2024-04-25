@@ -3,6 +3,7 @@
 import pickle
 import base64
 import gdown
+import sklearn
 
 #[Data Transformation]
 from datetime import datetime
