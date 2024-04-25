@@ -2,3 +2,5 @@
 base="dark"
 font="serif"
 
+[server]
+maxUploadSize=2000
