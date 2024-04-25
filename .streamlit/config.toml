@@ -1,6 +1,6 @@
 [theme]
-base="dark"
+base="light"
 font="serif"
 
 [server]
-maxUploadSize=2000
+maxUploadSize=2097152000
